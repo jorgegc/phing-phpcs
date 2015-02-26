@@ -1,6 +1,6 @@
 {
     "name": "jorgegc/phing-phpcs",
-    "description": "A collection of targets for PHP_CodeSniffer.",
+    "description": "A collection of PHP_CodeSniffer targets for Phing.",
     "type": "library",
     "keywords": [
         "phing",

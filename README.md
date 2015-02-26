@@ -1,9 +1,9 @@
-Phing PHP_CodeSniffer
-=====================
+Phing PHPCS
+===========
 
 ## Overview
 
-A collection of targets for PHP_CodeSniffer.
+A collection of PHP_CodeSniffer targets for Phing.
 
 ## Installation
 
