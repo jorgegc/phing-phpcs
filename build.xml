@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="phpcs" default="phpcs:check">
+
+  <!-- ## Properties -->
+
+  <property name="phpcs.bin"         value="${project.basedir}/bin/phpcs" />
+  <property name="phpcs.cmd"         value="${phpcs.bin}" />
+
+  <property name="phpcs.exclusions"  value="*/libraries*/,*/contrib/*,*/*.features.*,*/*.field_group.inc,*/*.layout.*,*/*.pages_default.*,*/*.panels_default.*,*/*strongarm.inc,*/*.views_default.inc" />
+  <property name="phpcs.extensions"  value="inc,install,module,php,profile,test,theme" />
+  <property name="phpcs.ruleset"     value="${project.basedir}/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml" />
+  <property name="phpcs.files.dir"   value="" />
+  <property name="phpcs.report.dir"  value="" />
+
+  <!-- ## Targets -->
+
+  <target name="phpcs:check"
+          description="Checks code against Drupal coding standards.">
+    <fail unless="phpcs.files.dir"
+          message="Please provide a phpcs.files.dir property." />
+    <fail unless="phpcs.report.dir"
+          message="Please provide a phpcs.report.dir property." />
+
+    <exec command="${phpcs.cmd}
+                   --report=checkstyle
+                   --report-file=${phpcs.report.dir}/checkstyle-codesniffer.xml
+                   --standard=${phpcs.ruleset}
+                   --extensions=${phpcs.extensions}
+                   --ignore=${phpcs.exclusions}
+                   ${phpcs.files.dir}"
+          passthru="true"
+          logoutput="true"
+          checkreturn="true" />
+  </target>
+
+</project>
