@@ -6,7 +6,6 @@
 
   <property name="phpcs.bin"         value="${project.basedir}/bin/phpcs" />
   <property name="phpcs.cmd"         value="${phpcs.bin}" />
-
   <property name="phpcs.exclusions"  value="*/libraries*/,*/contrib/*,*/*.features.*,*/*.field_group.inc,*/*.layout.*,*/*.pages_default.*,*/*.panels_default.*,*/*strongarm.inc,*/*.views_default.inc" />
   <property name="phpcs.extensions"  value="inc,install,module,php,profile,test,theme" />
   <property name="phpcs.ruleset"     value="${project.basedir}/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml" />
@@ -15,8 +14,21 @@
 
   <!-- ## Targets -->
 
+  <target name="phpcs:init"
+          description="Creates the PHP_CodeSniffer report folder."
+          unless="phpcs.initialized"
+          hidden="true">
+    <fail unless="phpcs.report.dir"
+          message="Please provide a phpcs.report.dir property." />
+
+    <mkdir dir="${phpcs.report.dir}" />
+
+    <property name="phpcs.initialized" value="true" />
+  </target>
+
   <target name="phpcs:check"
-          description="Checks code against Drupal coding standards.">
+          description="Checks code against Drupal coding standards."
+          depends="phpcs:init">
     <fail unless="phpcs.files.dir"
           message="Please provide a phpcs.files.dir property." />
     <fail unless="phpcs.report.dir"
