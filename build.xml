@@ -13,19 +13,17 @@
 
   <!-- ## Targets -->
 
-  <target name="phpcs:init"
-          description="Setup steps for PHP_CodeSniffer build tasks."
-          unless="phpcs.initialized"
-          hidden="true">
-    <mkdir dir="${phpcs.report.dir}" />
-    <property name="phpcs.initialized" value="true" />
-  </target>
-
   <target name="phpcs:check"
-          description="Checks code against Drupal coding standards."
-          depends="phpcs:init">
-    <fail unless="phpcs.files.dir"
-          message="Please provide a phpcs.files.dir property." />
+          description="Checks code against Drupal coding standards.">
+    <if>
+      <equals arg1="${phpcs.files.dir}" arg2="" />
+      <then>
+        <fail message="Please provide a phpcs.files.dir property." />
+      </then>
+    </if>
+
+    <mkdir dir="${phpcs.report.dir}" />
+
     <exec command="${phpcs.bin}
                    --report=junit
                    --report-file=${phpcs.report.dir}/phpcs.xml
