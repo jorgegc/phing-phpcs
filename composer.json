@@ -1,12 +1,16 @@
 {
     "name": "jorgegc/phing-phpcs",
     "description": "A collection of PHP_CodeSniffer targets for Phing.",
-    "type": "library",
     "keywords": [
         "phing",
         "phpcs"
     ],
+    "homepage": "https://github.com/jorgegc/phing-phpcs",
     "license": "GPL-2.0+",
+    "support": {
+        "issues": "https://github.com/jorgegc/phing-phpcs",
+        "source": "https://github.com/jorgegc/phing-phpcs"
+    },
     "require": {
         "squizlabs/PHP_CodeSniffer": "1.5.6",
         "drupal/coder": "dev-7.x-2.x"
