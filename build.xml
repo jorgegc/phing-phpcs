@@ -32,7 +32,6 @@
                    --ignore=${phpcs.exclusions}
                    ${phpcs.files.dir}"
           passthru="true"
-          logoutput="true"
           checkreturn="true" />
   </target>
 
