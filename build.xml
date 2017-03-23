@@ -4,16 +4,21 @@
 
   <!-- ## Properties -->
 
-  <property name="phpcs.bin"        value="${project.basedir}/bin/phpcs" />
-  <property name="phpcs.exclusions" value="*/libraries*/,*/contrib/*,*/*.features.*,*/*.field_group.inc,*/*.layout.*,*/*.pages_default.*,*/*.panels_default.*,*/*strongarm.inc,*/*.views_default.inc" />
-  <property name="phpcs.extensions" value="inc,install,module,php,profile,test,theme" />
-  <property name="phpcs.ruleset"    value="${project.basedir}/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml" />
-  <property name="phpcs.files.dir"  value="" />
-  <property name="phpcs.report.dir" value="${project.basedir}/build/logs/phpcs" />
+  <property name="phpcs.bin"          value="${project.basedir}/bin/phpcs" />
+  <property name="phpcs.exclude"      value="" />
+  <property name="phpcs.extensions"   value="" />
+  <property name="phpcs.ignore"       value="" />
+  <property name="phpcs.rulesets.dir" value="${project.basedir}/vendor/drupal/coder/coder_sniffer" />
+  <property name="phpcs.files.dir"    value="" />
+  <property name="phpcs.report.dir"   value="${project.basedir}/build/logs/phpcs" />
 
   <!-- ## Targets -->
 
   <target name="phpcs:check"
+          description="Checks code against Drupal coding standards and best practices."
+          depends="phpcs:check-cs, phpcs:check-bp" />
+
+  <target name="phpcs:check-cs"
           description="Checks code against Drupal coding standards.">
     <if>
       <equals arg1="${phpcs.files.dir}" arg2="" />
@@ -26,10 +31,36 @@
 
     <exec command="${phpcs.bin}
                    --report=junit
-                   --report-file=${phpcs.report.dir}/phpcs.xml
-                   --standard=${phpcs.ruleset}
+                   --report-file=${phpcs.report.dir}/phpcs-cs.xml
+                   --runtime-set installed_paths ${phpcs.rulesets.dir}
+                   --standard=Drupal
+                   --exclude=${phpcs.exclude}
                    --extensions=${phpcs.extensions}
-                   --ignore=${phpcs.exclusions}
+                   --ignore=${phpcs.ignore}
+                   ${phpcs.files.dir}"
+          passthru="true"
+          checkreturn="true" />
+  </target>
+
+  <target name="phpcs:check-bp"
+          description="Checks code against Drupal best practices.">
+    <if>
+      <equals arg1="${phpcs.files.dir}" arg2="" />
+      <then>
+        <fail message="Please provide a phpcs.files.dir property." />
+      </then>
+    </if>
+
+    <mkdir dir="${phpcs.report.dir}" />
+
+    <exec command="${phpcs.bin}
+                   --report=junit
+                   --report-file=${phpcs.report.dir}/phpcs-bp.xml
+                   --runtime-set installed_paths ${phpcs.rulesets.dir}
+                   --standard=DrupalPractice
+                   --exclude=${phpcs.exclude}
+                   --extensions=${phpcs.extensions}
+                   --ignore=${phpcs.ignore}
                    ${phpcs.files.dir}"
           passthru="true"
           checkreturn="true" />

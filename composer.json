@@ -12,7 +12,7 @@
         "source": "https://github.com/jorgegc/phing-phpcs"
     },
     "require": {
-        "drupal/coder": "7.2.5"
+        "drupal/coder": "~8.2"
     },
     "config": {
         "bin-dir": "bin/"
