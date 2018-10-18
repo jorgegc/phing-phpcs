@@ -7,7 +7,6 @@
   <property name="phpcs.bin"          value="${project.basedir}/bin/phpcs" />
   <property name="phpcs.report"       value="junit" />
   <property name="phpcs.exclude"      value="" />
-  <property name="phpcs.extensions"   value="" />
   <property name="phpcs.ignore"       value="" />
   <property name="phpcs.rulesets.dir" value="${project.basedir}/vendor/drupal/coder/coder_sniffer" />
   <property name="phpcs.files.dir"    value="" />
@@ -25,7 +24,6 @@
                    --runtime-set installed_paths ${phpcs.rulesets.dir}
                    --standard=Drupal
                    --exclude=${phpcs.exclude}
-                   --extensions=${phpcs.extensions}
                    --ignore=${phpcs.ignore}
                    ${phpcs.files.dir}"
           passthru="true"
@@ -38,7 +36,6 @@
                    --runtime-set installed_paths ${phpcs.rulesets.dir}
                    --standard=DrupalPractice
                    --exclude=${phpcs.exclude}
-                   --extensions=${phpcs.extensions}
                    --ignore=${phpcs.ignore}
                    ${phpcs.files.dir}"
           passthru="true"
@@ -66,7 +63,6 @@
                    --runtime-set installed_paths ${phpcs.rulesets.dir}
                    --standard=Drupal
                    --exclude=${phpcs.exclude}
-                   --extensions=${phpcs.extensions}
                    --ignore=${phpcs.ignore}
                    ${phpcs.files.dir}"
           passthru="true"
@@ -90,7 +86,6 @@
                    --runtime-set installed_paths ${phpcs.rulesets.dir}
                    --standard=DrupalPractice
                    --exclude=${phpcs.exclude}
-                   --extensions=${phpcs.extensions}
                    --ignore=${phpcs.ignore}
                    ${phpcs.files.dir}"
           passthru="true"
